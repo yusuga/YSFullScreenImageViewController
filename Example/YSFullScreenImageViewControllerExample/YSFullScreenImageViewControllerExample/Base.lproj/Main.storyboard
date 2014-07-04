@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="EJc-Wf-tdN">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--Table View Controller-->
+        <scene sceneID="5yf-mV-FiD">
+            <objects>
+                <tableViewController id="fZA-SU-k86" customClass="TableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="h2q-6b-oV7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="Section-1" id="AGd-MV-Q0k">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="166" id="Fjy-Pn-ry6">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="166"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fjy-Pn-ry6" id="66o-L6-N6j">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru100x100.png" id="CnX-2B-zz7">
+                                                    <rect key="frame" x="20" y="33" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="GYZ-1m-Yoa" appends="YES" id="o8N-oI-HwC"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru100x100.png" id="o1n-wK-81b">
+                                                    <rect key="frame" x="191" y="78" width="100" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="gnQ-cO-79h" appends="YES" id="OFp-oZ-4UX"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru100x100.png" id="Lue-QO-XId">
+                                                    <rect key="frame" x="259" y="12" width="51" height="51"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="0qM-nh-9cp" appends="YES" id="94g-WH-AGy"/>
+                                                    </connections>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="160" id="A1M-GB-6hB">
+                                        <rect key="frame" x="0.0" y="252" width="320" height="160"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A1M-GB-6hB" id="QC9-pa-rGj">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru360x230.png" id="d6h-YX-L7q">
+                                                    <rect key="frame" x="20" y="30" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="v6u-Yj-SyO" appends="YES" id="0vz-tu-wBr"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru360x230.png" id="r7R-Wt-klG">
+                                                    <rect key="frame" x="207" y="12" width="100" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="Fuo-Jn-pBX" appends="YES" id="LuD-N9-Uzu"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru360x230.png" id="1E7-jj-jPr">
+                                                    <rect key="frame" x="134" y="11" width="57" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="pEP-xb-WWm" appends="YES" id="1Ul-WB-PPi"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru360x230.png" id="N6R-zW-QPS">
+                                                    <rect key="frame" x="245" y="88" width="62" height="62"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="WpT-pp-SWu" appends="YES" id="EFa-zh-DHx"/>
+                                                    </connections>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Section-2" id="tms-3W-CbT">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="331" id="k7q-lH-7Yg">
+                                        <rect key="frame" x="0.0" y="434" width="320" height="331"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k7q-lH-7Yg" id="NqO-VX-tlt">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="330"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru180x360.png" id="NIl-5y-1kc">
+                                                    <rect key="frame" x="38" y="11" width="94" height="94"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="KnA-6a-f44" appends="YES" id="AkZ-Aj-4cw"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru180x360.png" id="1GL-6B-lOw">
+                                                    <rect key="frame" x="38" y="116" width="160" height="183"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="uP1-TU-GuC" appends="YES" id="0wm-8d-F3e"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru180x360.png" id="2pF-hT-TdA">
+                                                    <rect key="frame" x="238" y="20" width="73" height="217"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="OGi-wz-JXw" appends="YES" id="UcX-42-ciW"/>
+                                                    </connections>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aru180x360.png" id="rTc-ea-q9R">
+                                                    <rect key="frame" x="243" y="245" width="65" height="65"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="3Sm-Ij-BgJ" appends="YES" id="sDx-zV-u1n"/>
+                                                    </connections>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fGw-Cv-7m2">
+                                        <rect key="frame" x="0.0" y="765" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fGw-Cv-7m2" id="4E7-dj-Wgq">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="146" id="vnB-YJ-6AT">
+                                        <rect key="frame" x="0.0" y="809" width="320" height="146"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vnB-YJ-6AT" id="vnc-s3-mYN">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Section-3" id="VZy-ZA-4SX">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="332" id="Vnp-nk-nkc">
+                                        <rect key="frame" x="0.0" y="977" width="320" height="332"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vnp-nk-nkc" id="XzX-Oy-Pxm">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="331"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="fZA-SU-k86" id="66b-fn-yMl"/>
+                            <outlet property="delegate" destination="fZA-SU-k86" id="80G-vs-6w5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Auc-LN-Ddm"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dfR-Rf-9T6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GYZ-1m-Yoa">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="ctz-F3-4kI"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="gnQ-cO-79h">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="5Vb-nn-hXC"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="v6u-Yj-SyO">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="GA6-XA-k5Y"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="pEP-xb-WWm">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="o8t-x7-zdx"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Fuo-Jn-pBX">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="ohp-bQ-vRN"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="KnA-6a-f44">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="LQo-Jv-b8T"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="OGi-wz-JXw">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="5Zf-RT-t7r"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="uP1-TU-GuC">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="jyE-ql-qhm"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="WpT-pp-SWu">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="uGl-Ba-icZ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="3Sm-Ij-BgJ">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="01F-wd-nr1"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="0qM-nh-9cp">
+                    <connections>
+                        <action selector="imageViewDidTap:" destination="fZA-SU-k86" id="COJ-yb-eNf"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="707" y="172"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="i7i-ss-h7G">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EJc-Wf-tdN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yEu-kD-3Ma">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fZA-SU-k86" kind="relationship" relationship="rootViewController" id="H4Z-pp-j4H"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hTa-Lp-eqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="181" y="172"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Aru100x100.png" width="100" height="100"/>
+        <image name="Aru180x360.png" width="180" height="360"/>
+        <image name="Aru360x230.png" width="360" height="230"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
