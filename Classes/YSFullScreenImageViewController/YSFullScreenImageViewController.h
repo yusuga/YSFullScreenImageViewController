@@ -15,6 +15,6 @@
                  shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
                                  completion:(void (^)(void))completion;
 
-- (void)configureNewImage:(UIImage *)img;
+- (void)setImage:(UIImage *)image;
 
 @end

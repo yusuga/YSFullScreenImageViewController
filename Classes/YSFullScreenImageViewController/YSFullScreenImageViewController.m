@@ -6,10 +6,7 @@
 //  Copyright (c) 2013年 Yu Sugawara. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "YSFullScreenImageViewController.h"
-#import "UIActivityViewControllerHelper.h"
 
 static CFTimeInterval const kAnimationDuration = 0.3;
 static YSFullScreenImageViewController *__vc;
@@ -17,6 +14,7 @@ static YSFullScreenImageViewController *__vc;
 @interface YSFullScreenImageViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) UIWindow *window;
+@property (weak, nonatomic) UIViewController *rootViewController;
 @property (nonatomic) UIView *view;
 @property (nonatomic) UIView *backgroundColorView;
 @property (nonatomic) UIImageView *imageView;
@@ -59,8 +57,9 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 {
     if (self = [super init]) {
         self.window = window;
+        self.rootViewController = window.rootViewController;
         
-        self.view = [[UIView alloc] initWithFrame:window.rootViewController.view.bounds];
+        self.view = [[UIView alloc] initWithFrame:self.rootViewController.view.bounds];
         self.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         self.backgroundColorView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -311,14 +310,14 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     [CATransaction commit];
 }
 
-- (void)configureNewImage:(UIImage *)img
+- (void)setImage:(UIImage *)image
 {
     if (self.activityIndicatorView.isAnimating) {
         [self.activityIndicatorView stopAnimating];
         [self.activityIndicatorView removeFromSuperview];
         self.activityIndicatorView = nil;
     }
-    self.imageView.image = img;
+    self.imageView.image = image;
     self.imageView.alpha = 0.f;
     __weak typeof(self) wself = self;
     [UIView animateWithDuration:0.3f animations:^{
@@ -347,7 +346,10 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 {
     if (self.activityIndicatorView == nil) {
         if (gr.state == UIGestureRecognizerStateBegan) {
-            [UIActivityViewControllerHelper presentUIActivityViewControllerToPresentingViewController:self.window.rootViewController item:self.imageView.image];
+            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[self.imageView.image]
+                                                                             applicationActivities:nil];
+            vc.excludedActivityTypes = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook, UIActivityTypePostToWeibo, UIActivityTypeMail, UIActivityTypeMessage, UIActivityTypeAssignToContact];
+            [self.rootViewController presentViewController:vc animated:YES completion:nil];
         } else if (gr.state == UIGestureRecognizerStateEnded) {
             
         }
