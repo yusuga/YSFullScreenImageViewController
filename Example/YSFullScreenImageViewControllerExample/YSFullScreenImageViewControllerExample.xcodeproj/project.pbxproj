@@ -26,13 +26,6 @@
 		B8A6A14F196577F900896EA2 /* Aru40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A6A149196577F900896EA2 /* Aru40x40@2x.png */; };
 		B8A6A150196577F900896EA2 /* Aru720x720@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A6A14A196577F900896EA2 /* Aru720x720@2x.png */; };
 		B8A6A1531965792100896EA2 /* YSFullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A6A1521965792100896EA2 /* YSFullScreenImageViewController.m */; };
-		B8A6A1601965797D00896EA2 /* LINEActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A6A1571965797D00896EA2 /* LINEActivity.m */; };
-		B8A6A1611965797D00896EA2 /* LINEActivityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A6A1581965797D00896EA2 /* LINEActivityIcon.png */; };
-		B8A6A1621965797D00896EA2 /* LINEActivityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A6A1591965797D00896EA2 /* LINEActivityIcon@2x.png */; };
-		B8A6A1631965797D00896EA2 /* LINEActivityIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A6A15A1965797D00896EA2 /* LINEActivityIcon@2x~ipad.png */; };
-		B8A6A1641965797D00896EA2 /* LINEActivityIcon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A6A15B1965797D00896EA2 /* LINEActivityIcon~ipad.png */; };
-		B8A6A1651965797D00896EA2 /* UIActivityViewController+YSRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A6A15D1965797D00896EA2 /* UIActivityViewController+YSRotation.m */; };
-		B8A6A1661965797D00896EA2 /* UIActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A6A15F1965797D00896EA2 /* UIActivityViewControllerHelper.m */; };
 		B8A6A16819659B1C00896EA2 /* Aru360x230@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A6A16719659B1C00896EA2 /* Aru360x230@2x.png */; };
 		B8A6A16B1965C58300896EA2 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A6A16A1965C58300896EA2 /* TableViewController.m */; };
 /* End PBXBuildFile section */
@@ -72,16 +65,6 @@
 		B8A6A14A196577F900896EA2 /* Aru720x720@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aru720x720@2x.png"; sourceTree = "<group>"; };
 		B8A6A1511965792100896EA2 /* YSFullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSFullScreenImageViewController.h; sourceTree = "<group>"; };
 		B8A6A1521965792100896EA2 /* YSFullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSFullScreenImageViewController.m; sourceTree = "<group>"; };
-		B8A6A1561965797D00896EA2 /* LINEActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LINEActivity.h; sourceTree = "<group>"; };
-		B8A6A1571965797D00896EA2 /* LINEActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LINEActivity.m; sourceTree = "<group>"; };
-		B8A6A1581965797D00896EA2 /* LINEActivityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LINEActivityIcon.png; sourceTree = "<group>"; };
-		B8A6A1591965797D00896EA2 /* LINEActivityIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LINEActivityIcon@2x.png"; sourceTree = "<group>"; };
-		B8A6A15A1965797D00896EA2 /* LINEActivityIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LINEActivityIcon@2x~ipad.png"; sourceTree = "<group>"; };
-		B8A6A15B1965797D00896EA2 /* LINEActivityIcon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LINEActivityIcon~ipad.png"; sourceTree = "<group>"; };
-		B8A6A15C1965797D00896EA2 /* UIActivityViewController+YSRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityViewController+YSRotation.h"; sourceTree = "<group>"; };
-		B8A6A15D1965797D00896EA2 /* UIActivityViewController+YSRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivityViewController+YSRotation.m"; sourceTree = "<group>"; };
-		B8A6A15E1965797D00896EA2 /* UIActivityViewControllerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActivityViewControllerHelper.h; sourceTree = "<group>"; };
-		B8A6A15F1965797D00896EA2 /* UIActivityViewControllerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActivityViewControllerHelper.m; sourceTree = "<group>"; };
 		B8A6A16719659B1C00896EA2 /* Aru360x230@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aru360x230@2x.png"; sourceTree = "<group>"; };
 		B8A6A1691965C58300896EA2 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		B8A6A16A1965C58300896EA2 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
@@ -116,7 +99,6 @@
 			children = (
 				B8A6A1141965769800896EA2 /* YSFullScreenImageViewControllerExample */,
 				B8A6A143196576BB00896EA2 /* YSFullScreenImageViewController */,
-				B8A6A1541965797D00896EA2 /* UIActivityViewControllerHelper */,
 				B8A6A1331965769900896EA2 /* YSFullScreenImageViewControllerExampleTests */,
 				B8A6A10D1965769800896EA2 /* Frameworks */,
 				B8A6A10C1965769800896EA2 /* Products */,
@@ -210,32 +192,6 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		B8A6A1541965797D00896EA2 /* UIActivityViewControllerHelper */ = {
-			isa = PBXGroup;
-			children = (
-				B8A6A1551965797D00896EA2 /* LINEActivity */,
-				B8A6A15C1965797D00896EA2 /* UIActivityViewController+YSRotation.h */,
-				B8A6A15D1965797D00896EA2 /* UIActivityViewController+YSRotation.m */,
-				B8A6A15E1965797D00896EA2 /* UIActivityViewControllerHelper.h */,
-				B8A6A15F1965797D00896EA2 /* UIActivityViewControllerHelper.m */,
-			);
-			name = UIActivityViewControllerHelper;
-			path = ../../Classes/YSFullScreenImageViewController/UIActivityViewControllerHelper;
-			sourceTree = "<group>";
-		};
-		B8A6A1551965797D00896EA2 /* LINEActivity */ = {
-			isa = PBXGroup;
-			children = (
-				B8A6A1561965797D00896EA2 /* LINEActivity.h */,
-				B8A6A1571965797D00896EA2 /* LINEActivity.m */,
-				B8A6A1581965797D00896EA2 /* LINEActivityIcon.png */,
-				B8A6A1591965797D00896EA2 /* LINEActivityIcon@2x.png */,
-				B8A6A15A1965797D00896EA2 /* LINEActivityIcon@2x~ipad.png */,
-				B8A6A15B1965797D00896EA2 /* LINEActivityIcon~ipad.png */,
-			);
-			path = LINEActivity;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -313,14 +269,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8A6A14B196577F900896EA2 /* Aru100x100@2x.png in Resources */,
-				B8A6A1611965797D00896EA2 /* LINEActivityIcon.png in Resources */,
 				B8A6A16819659B1C00896EA2 /* Aru360x230@2x.png in Resources */,
 				B8A6A14E196577F900896EA2 /* Aru360x480@2x.png in Resources */,
 				B8A6A14C196577F900896EA2 /* Aru180x360@2x.png in Resources */,
-				B8A6A1621965797D00896EA2 /* LINEActivityIcon@2x.png in Resources */,
 				B8A6A14F196577F900896EA2 /* Aru40x40@2x.png in Resources */,
-				B8A6A1631965797D00896EA2 /* LINEActivityIcon@2x~ipad.png in Resources */,
-				B8A6A1641965797D00896EA2 /* LINEActivityIcon~ipad.png in Resources */,
 				B8A6A1271965769800896EA2 /* Images.xcassets in Resources */,
 				B8A6A1191965769800896EA2 /* InfoPlist.strings in Resources */,
 				B8A6A150196577F900896EA2 /* Aru720x720@2x.png in Resources */,
@@ -344,11 +296,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8A6A11F1965769800896EA2 /* AppDelegate.m in Sources */,
-				B8A6A1661965797D00896EA2 /* UIActivityViewControllerHelper.m in Sources */,
-				B8A6A1601965797D00896EA2 /* LINEActivity.m in Sources */,
 				B8A6A11B1965769800896EA2 /* main.m in Sources */,
 				B8A6A1531965792100896EA2 /* YSFullScreenImageViewController.m in Sources */,
-				B8A6A1651965797D00896EA2 /* UIActivityViewController+YSRotation.m in Sources */,
 				B8A6A16B1965C58300896EA2 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
