@@ -8,7 +8,7 @@
 
 #import "YSFullScreenImageViewController.h"
 
-static CFTimeInterval const kAnimationDuration = 0.3;
+static CFTimeInterval const kAnimationDuration = 0.2;
 static YSFullScreenImageViewController *__vc;
 
 @interface YSFullScreenImageViewController () <UIScrollViewDelegate>
@@ -152,41 +152,50 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 
 - (void)showWithCompletion:(void(^)(void))completion
 {
-    UIImage *img = self.imageView.image;
+    CGSize viewSize = self.view.bounds.size;
+    CGSize imageSize = self.imageView.image.size;
+    
     BOOL isPortrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
     
-#warning todo: orientation is not perfect
-    CGFloat ratio, size;
+    CGFloat ratioWidth = viewSize.width/imageSize.width;
+    CGFloat ratioHeight = viewSize.height/imageSize.height;
+
+    CGFloat size;
     CGPoint maskOrigin;
     if (isPortrait) {
-        if (img.size.width >= img.size.height) {
-            ratio = img.size.height/img.size.width;
-            size = self.view.bounds.size.width*ratio;
-            maskOrigin = CGPointMake(-((self.view.bounds.size.width - size)/2.f),
-                                     0.f);
+        if (imageSize.width < imageSize.height) {
+            if (ratioWidth > ratioHeight) {
+                size = imageSize.width*ratioHeight;
+                maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                         -((viewSize.height - size)/2.f));
+            } else {
+                size = viewSize.width;
+                maskOrigin = CGPointMake(0.f,
+                                         -((viewSize.height - size)/2.f));
+            }
         } else {
-            ratio = img.size.width/img.size.height;
-            size = self.view.bounds.size.height*ratio;
-            maskOrigin = CGPointMake(0.f,
-                                     -((self.view.bounds.size.height - size)/2.f));
+            size = imageSize.height*ratioWidth;
+            maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                     - ((viewSize.height - size)/2.f));
         }
     } else {
-        if (img.size.width > img.size.height) {
-            ratio = img.size.height/img.size.width;
-            size = self.view.bounds.size.width*ratio;
-            maskOrigin.x = -((self.view.bounds.size.width - size)/2.f);
-            
-            ratio = img.size.width/img.size.height;
-            size = self.view.bounds.size.height*ratio;
-            
-            maskOrigin.y = -((self.view.bounds.size.height - size)/2.f);
+        if (imageSize.width < imageSize.height) {
+            size = imageSize.width*ratioHeight;
+            maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                     -((viewSize.height - size)/2.f));
         } else {
-            ratio = img.size.width/img.size.height;
-            size = self.view.bounds.size.height*ratio;
-            maskOrigin = CGPointMake(0.f,
-                                     -((self.view.bounds.size.height - size)/2.f));
+            if (ratioWidth < ratioHeight) {
+                size = imageSize.height*ratioWidth;
+                maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                         -((viewSize.height - size)/2.f));
+            } else {
+                size = viewSize.height;
+                maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                         0.f);
+            }
         }
     }
+//    NSLog(@"%@>\nimgSize: %@, ratioW: %f, ratioH: %f, size: %f, maskOri: %@", isPortrait ? @"portrait" : @"landscape", NSStringFromCGSize(imageSize), ratioWidth, ratioHeight, size, NSStringFromCGPoint(maskOrigin));
     
     __weak typeof(self) wself = self;
     [self addAnimationWithImageViewSize:CGSizeMake(size, size)
