@@ -9,17 +9,15 @@
 #import "YSFullScreenImageViewController.h"
 
 static CFTimeInterval const kAnimationDuration = 0.2;
-static YSFullScreenImageViewController *__vc;
 
 @interface YSFullScreenImageViewController () <UIScrollViewDelegate>
 
-@property (weak, nonatomic) UIWindow *window;
-@property (weak, nonatomic) UIViewController *rootViewController;
-@property (nonatomic) UIView *view;
-@property (nonatomic) UIView *backgroundColorView;
-@property (nonatomic) UIImageView *imageView;
+@property (nonatomic, weak) UIWindow *previousKeyWindow;
+@property (nonatomic) UIWindow *window;
+@property (nonatomic) IBOutlet UIView *backgroundColorView;
+@property (nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) CAShapeLayer *imageMaskLayer;
-@property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) CGRect startFrame;
 @property (nonatomic) CGRect endFrame;
 @property (nonatomic) UIActivityIndicatorView *activityIndicatorView;
@@ -42,12 +40,8 @@ static YSFullScreenImageViewController *__vc;
                                                                                       previewView:previewView
                                                                                             image:image
                                                                        shownActivityIndicatorView:shownActivityIndicatorView];
-    
-    [window.rootViewController.view addSubview:vc.view];
     [vc showWithCompletion:completion];
-    
-    __vc =  vc;
-    return __vc;
+    return vc;
 }
 
 - (id)initWithWindow:(UIWindow*)window
@@ -56,11 +50,13 @@ static YSFullScreenImageViewController *__vc;
 shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 {
     if (self = [super init]) {
-        self.window = window;
-        self.rootViewController = window.rootViewController;
+        self.previousKeyWindow = [UIApplication sharedApplication].keyWindow;
+        self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         
-        self.view = [[UIView alloc] initWithFrame:self.rootViewController.view.bounds];
-        self.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.window.opaque = NO;
+        self.window.rootViewController = self;
+        self.view.frame = self.window.bounds;        
         
         self.backgroundColorView = [[UIView alloc] initWithFrame:self.view.bounds];
         self.backgroundColorView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
@@ -152,6 +148,9 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 
 - (void)showWithCompletion:(void(^)(void))completion
 {
+    [self.window makeKeyAndVisible];
+    [self.window addSubview:self.view];
+    
     CGSize viewSize = self.view.bounds.size;
     CGSize imageSize = self.imageView.image.size;
     
@@ -219,8 +218,10 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     
     __weak typeof(self) wself = self;
     void(^cleanUp)(void) = ^{
-        [wself.view removeFromSuperview];
-        __vc = nil;
+        for (UIView *view in @[self.view, self.window]) {
+            [view removeFromSuperview];
+        }
+        [self.previousKeyWindow makeKeyAndVisible];
     };
     
     if (self.startOrientation == [UIApplication sharedApplication].statusBarOrientation &&
@@ -358,7 +359,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
             UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[self.imageView.image]
                                                                              applicationActivities:nil];
             vc.excludedActivityTypes = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook, UIActivityTypePostToWeibo, UIActivityTypeMail, UIActivityTypeMessage, UIActivityTypeAssignToContact];
-            [self.rootViewController presentViewController:vc animated:YES completion:nil];
+            [self presentViewController:vc animated:YES completion:nil];
         } else if (gr.state == UIGestureRecognizerStateEnded) {
             
         }

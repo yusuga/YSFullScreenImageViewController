@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface YSFullScreenImageViewController : NSObject
+@interface YSFullScreenImageViewController : UIViewController
 
 + (instancetype)presentWithTargetPreviewVew:(UIView*)previewView
                                       image:(UIImage*)image
