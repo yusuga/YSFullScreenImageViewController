@@ -35,18 +35,15 @@ static CFTimeInterval const kAnimationDuration = 0.2;
                  shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
                                  completion:(void (^)(void))completion;
 {
-    UIWindow *window = previewView.window;
-    YSFullScreenImageViewController *vc = [[YSFullScreenImageViewController alloc] initWithWindow:window
-                                                                                      previewView:previewView
-                                                                                            image:image
-                                                                       shownActivityIndicatorView:shownActivityIndicatorView];
+    YSFullScreenImageViewController *vc = [[YSFullScreenImageViewController alloc] initWithPreviewView:previewView
+                                                                                                 image:image
+                                                                            shownActivityIndicatorView:shownActivityIndicatorView];
     [vc showWithCompletion:completion];
     return vc;
 }
 
-- (id)initWithWindow:(UIWindow*)window
-         previewView:(UIView*)previewView
-               image:(UIImage*)image
+- (id)initWithPreviewView:(UIView*)previewView
+                    image:(UIImage*)image
 shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 {
     if (self = [super init]) {
@@ -86,8 +83,8 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         [self.scrollView addSubview:self.imageView];
         
         UIApplication *app = [UIApplication sharedApplication];
-        CGPoint origin = [previewView convertPoint:CGPointZero toView:window];
-        CGSize winSize = window.bounds.size;
+        CGPoint origin = [previewView convertPoint:CGPointZero toView:self.window];
+        CGSize winSize = self.window.bounds.size;
         switch (app.statusBarOrientation) {
             case UIInterfaceOrientationPortrait:
                 break;
