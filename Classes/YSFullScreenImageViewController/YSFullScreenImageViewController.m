@@ -47,6 +47,13 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 {
     if (self = [super init]) {
+        CGRect previewViewBounds = CGRectZero;
+        if (previewView) {
+            previewViewBounds = previewView.bounds;
+        } else {
+            previewViewBounds = CGRectMake(0.f, 0.f, 100.f, 100.f);
+        }
+        
         self.previousKeyWindow = [UIApplication sharedApplication].keyWindow;
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.window.windowLevel = UIWindowLevelStatusBar + 1.f;
@@ -72,11 +79,10 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         
         self.imageView = [[UIImageView alloc] initWithImage:image];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-
-        CGRect bounds = previewView.bounds;
+        
         CAShapeLayer *maskLayer = [CAShapeLayer layer];
-        maskLayer.frame = bounds;
-        maskLayer.path = [UIBezierPath bezierPathWithRect:previewView.bounds].CGPath;
+        maskLayer.frame = previewViewBounds;
+        maskLayer.path = [UIBezierPath bezierPathWithRect:previewViewBounds].CGPath;
         self.imageMaskLayer = maskLayer;
         self.imageView.layer.mask = maskLayer;
         
@@ -84,33 +90,38 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         [self.scrollView addSubview:self.imageView];
         
         UIApplication *app = [UIApplication sharedApplication];
-        CGPoint origin = [previewView convertPoint:CGPointZero toView:self.window];
-        CGSize winSize = self.window.bounds.size;
-        switch (app.statusBarOrientation) {
-            case UIInterfaceOrientationPortrait:
-                break;
-            case UIInterfaceOrientationPortraitUpsideDown:
-                origin.x = winSize.width - origin.x;
-                origin.y = winSize.height - origin.y;
-                break;
-            case UIInterfaceOrientationLandscapeLeft:
-            {
-                CGFloat beforeX = origin.x;
-                origin.x = winSize.height - origin.y;
-                origin.y = beforeX;
-                break;
+        CGPoint origin;
+        if (previewView) {
+            origin = [previewView convertPoint:CGPointZero toView:self.window];
+            CGSize winSize = self.window.bounds.size;
+            switch (app.statusBarOrientation) {
+                case UIInterfaceOrientationPortrait:
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    origin.x = winSize.width - origin.x;
+                    origin.y = winSize.height - origin.y;
+                    break;
+                case UIInterfaceOrientationLandscapeLeft:
+                {
+                    CGFloat beforeX = origin.x;
+                    origin.x = winSize.height - origin.y;
+                    origin.y = beforeX;
+                    break;
+                }
+                case UIInterfaceOrientationLandscapeRight:
+                {
+                    CGFloat beforeX = origin.x;
+                    origin.x = origin.y;
+                    origin.y = winSize.width - beforeX;
+                    break;
+                }
+                default:
+                    break;
             }
-            case UIInterfaceOrientationLandscapeRight:
-            {
-                CGFloat beforeX = origin.x;
-                origin.x = origin.y;
-                origin.y = winSize.width - beforeX;
-                break;
-            }
-            default:
-                break;
+        } else {
+            origin = CGPointMake(self.window.bounds.size.width/2.f, self.window.bounds.size.height/2.f);
         }
-        self.startFrame = CGRectMake(origin.x, origin.y, previewView.bounds.size.width, previewView.bounds.size.height);
+        self.startFrame = CGRectMake(origin.x, origin.y, previewViewBounds.size.width, previewViewBounds.size.height);
         self.imageView.frame = self.startFrame;
                 
         if (shownActivityIndicatorView) {
