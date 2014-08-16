@@ -395,4 +395,11 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     self.scrollView.contentSize = self.view.bounds.size;
 }
 
+#pragma mark - StatusBar
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 @end
