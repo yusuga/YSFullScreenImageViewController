@@ -49,6 +49,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     if (self = [super init]) {
         self.previousKeyWindow = [UIApplication sharedApplication].keyWindow;
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self.window.windowLevel = UIWindowLevelStatusBar + 1.f;
         
         self.window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.window.opaque = NO;
@@ -215,10 +216,11 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     
     __weak typeof(self) wself = self;
     void(^cleanUp)(void) = ^{
-        for (UIView *view in @[self.view, self.window]) {
-            [view removeFromSuperview];
-        }
-        [self.previousKeyWindow makeKeyAndVisible];
+        [wself.view removeFromSuperview];
+        [wself.window removeFromSuperview];
+        wself.window = nil;
+        
+        [wself.previousKeyWindow makeKeyAndVisible];
     };
     
     if (self.startOrientation == [UIApplication sharedApplication].statusBarOrientation &&
