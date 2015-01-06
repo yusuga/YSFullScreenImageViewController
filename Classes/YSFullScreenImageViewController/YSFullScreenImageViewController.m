@@ -138,13 +138,8 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
             [self.activityIndicatorView startAnimating];
         }
         
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidSingleTap:)];
-        [self.view addGestureRecognizer:singleTap];
-        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidDoubleTap:)];
-        doubleTap.numberOfTapsRequired = 2;
-        [self.view addGestureRecognizer:doubleTap];
-        
-        [self.view addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidLongPress:)]];
+        self.view.userInteractionEnabled = NO;
+        [self addGestureRecognizers];
         
         self.startOrientation = [UIApplication sharedApplication].statusBarOrientation;
         
