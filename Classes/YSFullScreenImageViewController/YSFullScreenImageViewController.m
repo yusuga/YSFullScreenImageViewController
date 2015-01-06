@@ -430,6 +430,13 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     self.scrollView.contentSize = self.view.bounds.size;
 }
 
+#pragma mark - Rotation
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
 #pragma mark - StatusBar
 
 - (UIStatusBarStyle)preferredStatusBarStyle
