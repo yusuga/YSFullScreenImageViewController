@@ -29,9 +29,11 @@
     [YSFullScreenImageViewController presentWithTargetPreviewVew:imageView
                                                            image:imageView.image
                                       shownActivityIndicatorView:NO
-                                                      completion:^{
-                                                          NSLog(@"completion");
-                                                      }];
+                                               presentCompletion:^{
+                                                   NSLog(@"Present completion");
+                                               } dismissCompletion:^{
+                                                   NSLog(@"Dismiss completion");
+                                               }];
 }
 
 #pragma mark - UINavigationControllerDelegate

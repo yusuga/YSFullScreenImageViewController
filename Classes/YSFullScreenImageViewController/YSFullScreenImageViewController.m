@@ -23,6 +23,8 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 @property (nonatomic) BOOL crossDissolveTransition;
 @property (nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
+@property (copy, nonatomic) void(^dismissCompletion)(void);
+
 @end
 
 @implementation YSFullScreenImageViewController
@@ -30,7 +32,8 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 + (instancetype)presentWithTargetPreviewVew:(UIView*)previewView
                                       image:(UIImage*)image
                  shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
-                                 completion:(void (^)(void))completion;
+                          presentCompletion:(void(^)(void))presentCompletion
+                          dismissCompletion:(void(^)(void))dismissCompletion;
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if ([window.rootViewController isKindOfClass:[self class]]) {
@@ -41,7 +44,8 @@ static CFTimeInterval const kAnimationDuration = 0.2;
     YSFullScreenImageViewController *vc = [[YSFullScreenImageViewController alloc] initWithPreviewView:previewView
                                                                                                  image:image
                                                                             shownActivityIndicatorView:shownActivityIndicatorView];
-    [vc showWithCompletion:completion];
+    vc.dismissCompletion = dismissCompletion;
+    [vc showWithCompletion:presentCompletion];
     return vc;
 }
 
@@ -261,6 +265,8 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         strongSelf.window = nil;
         
         [strongSelf.previousKeyWindow makeKeyAndVisible];
+        
+        if (strongSelf.dismissCompletion) strongSelf.dismissCompletion();
     };
     
     if (!self.crossDissolveTransition

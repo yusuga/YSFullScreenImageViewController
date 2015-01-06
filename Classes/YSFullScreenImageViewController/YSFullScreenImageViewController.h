@@ -13,7 +13,8 @@
 + (instancetype)presentWithTargetPreviewVew:(UIView*)previewView
                                       image:(UIImage*)image
                  shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
-                                 completion:(void (^)(void))completion;
+                          presentCompletion:(void(^)(void))presentCompletion
+                          dismissCompletion:(void(^)(void))dismissCompletion;
 
 - (void)setImage:(UIImage *)image;
 
