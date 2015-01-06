@@ -20,9 +20,8 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 @property (nonatomic) CAShapeLayer *imageMaskLayer;
 @property (nonatomic) CGRect startFrame;
 @property (nonatomic) CGRect endFrame;
+@property (nonatomic) BOOL crossDissolveTransition;
 @property (nonatomic) UIActivityIndicatorView *activityIndicatorView;
-
-@property (nonatomic) UIInterfaceOrientation startOrientation;
 
 @end
 
@@ -95,7 +94,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         
         UIApplication *app = [UIApplication sharedApplication];
         CGPoint origin;
-        if (!previewView) {
+        if (previewView) {
             origin = [previewView convertPoint:CGPointZero toView:self.window];
             
             if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
@@ -122,11 +121,12 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
                         break;
                     }
                     default:
+                        self.crossDissolveTransition = YES;
                         break;
                 }
             }
         } else {
-            origin = CGPointMake(self.window.bounds.size.width/2.f, self.window.bounds.size.height/2.f);
+            self.crossDissolveTransition = YES;
         }
         self.startFrame = CGRectMake(origin.x, origin.y, previewViewBounds.size.width, previewViewBounds.size.height);
         self.imageView.frame = self.startFrame;
@@ -141,8 +141,6 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         
         self.view.userInteractionEnabled = NO;
         [self addGestureRecognizers];
-        
-        self.startOrientation = [UIApplication sharedApplication].statusBarOrientation;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willRotate:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -207,21 +205,41 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     //    NSLog(@"%@>\nimgSize: %@, ratioW: %f, ratioH: %f, size: %f, maskOri: %@", isPortrait ? @"portrait" : @"landscape", NSStringFromCGSize(imageSize), ratioWidth, ratioHeight, size, NSStringFromCGPoint(maskOrigin));
     
     __weak typeof(self) wself = self;
-    [self addAnimationWithImageViewSize:CGSizeMake(size, size)
-                        imageViewCenter:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)
-                          imageMaskRect:CGRectMake(maskOrigin.x,
-                                                   maskOrigin.y,
-                                                   self.view.bounds.size.width,
-                                                   self.view.bounds.size.height)
-                             completion:^{
-                                 wself.endFrame = wself.imageView.frame;
-                                 wself.imageView.frame = wself.view.bounds;
-                                 wself.imageView.contentMode = UIViewContentModeScaleAspectFit;
-                                 wself.imageView.layer.mask = nil;
-                                 
-                                 wself.view.userInteractionEnabled = YES;
-                                 if (completion) completion();
-                             }];
+    
+    if (self.crossDissolveTransition) {
+        self.backgroundColorView.alpha = 0.f;
+        self.imageView.alpha = 0.f;
+        self.imageView.center = CGPointMake(self.view.bounds.size.width/2.f,
+                                            self.view.bounds.size.height/2.f);
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.imageView.layer.mask = nil;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            wself.backgroundColorView.alpha = 1.f;
+            wself.imageView.alpha = 1.f;
+            wself.imageView.frame = wself.view.bounds;
+        } completion:^(BOOL finished) {
+            wself.view.userInteractionEnabled = YES;
+            if (completion) completion();
+        }];
+    } else {
+        [self addAnimationWithImageViewSize:CGSizeMake(size, size)
+                            imageViewCenter:CGPointMake(self.view.bounds.size.width/2.f,
+                                                        self.view.bounds.size.height/2.f)
+                              imageMaskRect:CGRectMake(maskOrigin.x,
+                                                       maskOrigin.y,
+                                                       self.view.bounds.size.width,
+                                                       self.view.bounds.size.height)
+                                 completion:^{
+                                     wself.endFrame = wself.imageView.frame;
+                                     wself.imageView.frame = wself.view.bounds;
+                                     wself.imageView.contentMode = UIViewContentModeScaleAspectFit;
+                                     wself.imageView.layer.mask = nil;
+                                     
+                                     wself.view.userInteractionEnabled = YES;
+                                     if (completion) completion();
+                                 }];
+    }
 }
 
 - (void)hide
@@ -245,8 +263,8 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         [strongSelf.previousKeyWindow makeKeyAndVisible];
     };
     
-    if (self.startOrientation == [UIApplication sharedApplication].statusBarOrientation &&
-        self.scrollView.zoomScale == 1.f) {
+    if (!self.crossDissolveTransition
+        && self.scrollView.zoomScale == 1.f) {
         
         self.imageView.frame = self.endFrame;
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -421,6 +439,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 
 - (void)willRotate:(NSNotification*)notification
 {
+    self.crossDissolveTransition = YES;
     self.scrollView.zoomScale = 1.f;
 }
 
