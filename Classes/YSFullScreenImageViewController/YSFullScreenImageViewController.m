@@ -373,11 +373,6 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         self.activityIndicatorView = nil;
     }
     self.imageView.image = image;
-    self.imageView.alpha = 0.f;
-    __weak typeof(self) wself = self;
-    [UIView animateWithDuration:0.3f animations:^{
-        wself.imageView.alpha = 1.f;
-    }];
 }
 
 #pragma mark - Gesture
