@@ -35,6 +35,7 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if ([window.rootViewController isKindOfClass:[self class]]) {
+        DDLogWarn(@"Already YSFullScreenImageViewController is displayed.");
         return nil;
     }
     
@@ -94,7 +95,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         
         UIApplication *app = [UIApplication sharedApplication];
         CGPoint origin;
-        if (previewView) {
+        if (!previewView) {
             origin = [previewView convertPoint:CGPointZero toView:self.window];
             
             if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {

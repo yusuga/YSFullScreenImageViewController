@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <YSCocoaLumberjackHelper/YSCocoaLumberjackHelper.h>
 
 void uncaughtExceptionHandler(NSException*);
 void uncaughtExceptionHandler(NSException *exception) {
@@ -19,6 +20,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
+    [YSCocoaLumberjackHelper launchLogger];
     
     return YES;
 }
