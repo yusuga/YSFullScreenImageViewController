@@ -24,8 +24,6 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 
 @property (nonatomic) UIInterfaceOrientation startOrientation;
 
-@property (nonatomic) UITapGestureRecognizer *doubleTapGesture;
-
 @end
 
 @implementation YSFullScreenImageViewController
@@ -35,6 +33,11 @@ static CFTimeInterval const kAnimationDuration = 0.2;
                  shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
                                  completion:(void (^)(void))completion;
 {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    if ([window.rootViewController isKindOfClass:[self class]]) {
+        return nil;
+    }
+    
     YSFullScreenImageViewController *vc = [[YSFullScreenImageViewController alloc] initWithPreviewView:previewView
                                                                                                  image:image
                                                                             shownActivityIndicatorView:shownActivityIndicatorView];
@@ -137,7 +140,6 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidDoubleTap:)];
         doubleTap.numberOfTapsRequired = 2;
         [self.view addGestureRecognizer:doubleTap];
-        self.doubleTapGesture = doubleTap;
         
         [self.view addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidLongPress:)]];
         
@@ -203,7 +205,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
             }
         }
     }
-//    NSLog(@"%@>\nimgSize: %@, ratioW: %f, ratioH: %f, size: %f, maskOri: %@", isPortrait ? @"portrait" : @"landscape", NSStringFromCGSize(imageSize), ratioWidth, ratioHeight, size, NSStringFromCGPoint(maskOrigin));
+    //    NSLog(@"%@>\nimgSize: %@, ratioW: %f, ratioH: %f, size: %f, maskOri: %@", isPortrait ? @"portrait" : @"landscape", NSStringFromCGSize(imageSize), ratioWidth, ratioHeight, size, NSStringFromCGPoint(maskOrigin));
     
     __weak typeof(self) wself = self;
     [self addAnimationWithImageViewSize:CGSizeMake(size, size)
@@ -217,6 +219,8 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
                                  wself.imageView.frame = wself.view.bounds;
                                  wself.imageView.contentMode = UIViewContentModeScaleAspectFit;
                                  wself.imageView.layer.mask = nil;
+                                 
+                                 wself.view.userInteractionEnabled = YES;
                                  if (completion) completion();
                              }];
 }
@@ -225,13 +229,21 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 {
     self.view.userInteractionEnabled = NO;
     
+    /**
+     *  userInteractionEnabled = NO だけでは UITapGestureRecognizerの遅延発動は止められないため
+     *  UITapGestureRecognizerを削除する
+     */
+    [self removeGestureRecognizers];
+    
     __weak typeof(self) wself = self;
     void(^cleanUp)(void) = ^{
-        [wself.view removeFromSuperview];
-        [wself.window removeFromSuperview];
-        wself.window = nil;
+        __strong typeof(wself) strongSelf = wself;
         
-        [wself.previousKeyWindow makeKeyAndVisible];
+        [strongSelf.view removeFromSuperview];
+        [strongSelf.window removeFromSuperview];
+        strongSelf.window = nil;
+        
+        [strongSelf.previousKeyWindow makeKeyAndVisible];
     };
     
     if (self.startOrientation == [UIApplication sharedApplication].statusBarOrientation &&
@@ -240,7 +252,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         self.imageView.frame = self.endFrame;
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.layer.mask = self.imageMaskLayer;
-
+        
         [self addAnimationWithImageViewSize:self.startFrame.size
                             imageViewCenter:CGPointMake(CGRectGetMidX(self.startFrame), CGRectGetMidY(self.startFrame))
                               imageMaskRect:CGRectMake(0.f, 0.f, self.startFrame.size.width, self.startFrame.size.height)
@@ -343,6 +355,29 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     [UIView animateWithDuration:0.3f animations:^{
         wself.imageView.alpha = 1.f;
     }];
+}
+
+#pragma mark - Gesture
+
+- (void)addGestureRecognizers
+{
+    // Single tap
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidSingleTap:)]];
+    
+    // Double tap
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidDoubleTap:)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:doubleTap];
+    
+    // Long press
+    [self.view addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidLongPress:)]];
+}
+
+- (void)removeGestureRecognizers
+{
+    for (UIGestureRecognizer *gesture in self.view.gestureRecognizers) {
+        [self.view removeGestureRecognizer:gesture];
+    }
 }
 
 - (void)viewDidSingleTap:(UITapGestureRecognizer*)gr
