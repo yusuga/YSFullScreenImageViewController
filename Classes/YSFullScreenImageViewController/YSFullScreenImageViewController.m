@@ -96,30 +96,33 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         CGPoint origin;
         if (previewView) {
             origin = [previewView convertPoint:CGPointZero toView:self.window];
-            CGSize winSize = self.window.bounds.size;
-            switch (app.statusBarOrientation) {
-                case UIInterfaceOrientationPortrait:
-                    break;
-                case UIInterfaceOrientationPortraitUpsideDown:
-                    origin.x = winSize.width - origin.x;
-                    origin.y = winSize.height - origin.y;
-                    break;
-                case UIInterfaceOrientationLandscapeLeft:
-                {
-                    CGFloat beforeX = origin.x;
-                    origin.x = winSize.height - origin.y;
-                    origin.y = beforeX;
-                    break;
+            
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+                CGSize winSize = self.window.bounds.size;
+                switch (app.statusBarOrientation) {
+                    case UIInterfaceOrientationPortrait:
+                        break;
+                    case UIInterfaceOrientationPortraitUpsideDown:
+                        origin.x = winSize.width - origin.x;
+                        origin.y = winSize.height - origin.y;
+                        break;
+                    case UIInterfaceOrientationLandscapeLeft:
+                    {
+                        CGFloat beforeX = origin.x;
+                        origin.x = winSize.height - origin.y;
+                        origin.y = beforeX;
+                        break;
+                    }
+                    case UIInterfaceOrientationLandscapeRight:
+                    {
+                        CGFloat beforeX = origin.x;
+                        origin.x = origin.y;
+                        origin.y = winSize.width - beforeX;
+                        break;
+                    }
+                    default:
+                        break;
                 }
-                case UIInterfaceOrientationLandscapeRight:
-                {
-                    CGFloat beforeX = origin.x;
-                    origin.x = origin.y;
-                    origin.y = winSize.width - beforeX;
-                    break;
-                }
-                default:
-                    break;
             }
         } else {
             origin = CGPointMake(self.window.bounds.size.width/2.f, self.window.bounds.size.height/2.f);
