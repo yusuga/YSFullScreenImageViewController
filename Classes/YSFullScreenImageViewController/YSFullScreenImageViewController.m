@@ -71,7 +71,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         self.view.frame = self.window.bounds;        
         
         self.backgroundColorView = [[UIView alloc] initWithFrame:self.view.bounds];
-        self.backgroundColorView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+        self.backgroundColorView.backgroundColor = [UIColor blackColor];
         self.backgroundColorView.layer.opacity = 0.f;
         self.backgroundColorView.autoresizingMask = self.view.autoresizingMask;
         [self.view addSubview:self.backgroundColorView];
