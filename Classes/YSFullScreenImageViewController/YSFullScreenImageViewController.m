@@ -29,15 +29,24 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 
 @implementation YSFullScreenImageViewController
 
-+ (instancetype)presentWithTargetPreviewVew:(UIView*)previewView
-                                      image:(UIImage*)image
-                 shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
-                          presentCompletion:(void(^)(void))presentCompletion
-                          dismissCompletion:(void(^)(void))dismissCompletion;
++ (YSFullScreenImageViewController * __nullable)presentWithTargetPreviewVew:(UIView*)previewView
+                                                                      image:(UIImage*)image
+                                                 shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
+                                                          presentCompletion:(void(^)(void))presentCompletion
+                                                          dismissCompletion:(void(^)(void))dismissCompletion;
 {
+    if (!image) {
+#ifdef DDLogWarn
+        DDLogWarn(@"Already YSFullScreenImageViewController is displayed.");
+#endif
+        return nil;
+    }
+    
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if ([window.rootViewController isKindOfClass:[self class]]) {
+#ifdef DDLogWarn
         DDLogWarn(@"Already YSFullScreenImageViewController is displayed.");
+#endif
         return nil;
     }
     
@@ -96,9 +105,9 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         self.imageView.autoresizingMask = self.view.autoresizingMask;
         [self.scrollView addSubview:self.imageView];
         
-        UIApplication *app = [UIApplication sharedApplication];
-        CGPoint origin;
+        CGPoint origin = CGPointZero;
         if (previewView) {
+            UIApplication *app = [UIApplication sharedApplication];
             origin = [previewView convertPoint:CGPointZero toView:self.window];
             
             if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
@@ -171,42 +180,48 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
     CGFloat ratioWidth = viewSize.width/imageSize.width;
     CGFloat ratioHeight = viewSize.height/imageSize.height;
 
-    CGFloat size;
-    CGPoint maskOrigin;
-    if (isPortrait) {
-        if (imageSize.width < imageSize.height) {
-            if (ratioWidth > ratioHeight) {
+    CGFloat size = 0.f;
+    CGPoint maskOrigin = CGPointZero;
+    
+    if (imageSize.width > 0.f && imageSize.height > 0.f) {
+        if (isPortrait) {
+            if (imageSize.width < imageSize.height) {
+                if (ratioWidth > ratioHeight) {
+                    size = imageSize.width*ratioHeight;
+                    maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                             -((viewSize.height - size)/2.f));
+                } else {
+                    size = viewSize.width;
+                    maskOrigin = CGPointMake(0.f,
+                                             -((viewSize.height - size)/2.f));
+                }
+            } else {
+                size = imageSize.height*ratioWidth;
+                maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                         - ((viewSize.height - size)/2.f));
+            }
+        } else {
+            if (imageSize.width < imageSize.height) {
                 size = imageSize.width*ratioHeight;
                 maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
                                          -((viewSize.height - size)/2.f));
             } else {
-                size = viewSize.width;
-                maskOrigin = CGPointMake(0.f,
-                                         -((viewSize.height - size)/2.f));
+                if (ratioWidth < ratioHeight) {
+                    size = imageSize.height*ratioWidth;
+                    maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                             -((viewSize.height - size)/2.f));
+                } else {
+                    size = viewSize.height;
+                    maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
+                                             0.f);
+                }
             }
-        } else {
-            size = imageSize.height*ratioWidth;
-            maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
-                                     - ((viewSize.height - size)/2.f));
         }
     } else {
-        if (imageSize.width < imageSize.height) {
-            size = imageSize.width*ratioHeight;
-            maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
-                                     -((viewSize.height - size)/2.f));
-        } else {
-            if (ratioWidth < ratioHeight) {
-                size = imageSize.height*ratioWidth;
-                maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
-                                         -((viewSize.height - size)/2.f));
-            } else {
-                size = viewSize.height;
-                maskOrigin = CGPointMake(-((viewSize.width - size)/2.f),
-                                         0.f);
-            }
-        }
+#ifdef DDLogError
+        DDLogError(@"%@, imageSize is invalid, imageSize = %@", NSStringFromSelector(_cmd), NSStringFromCGSize(imageSize));
+#endif
     }
-    //    NSLog(@"%@>\nimgSize: %@, ratioW: %f, ratioH: %f, size: %f, maskOri: %@", isPortrait ? @"portrait" : @"landscape", NSStringFromCGSize(imageSize), ratioWidth, ratioHeight, size, NSStringFromCGPoint(maskOrigin));
     
     __weak typeof(self) wself = self;
     

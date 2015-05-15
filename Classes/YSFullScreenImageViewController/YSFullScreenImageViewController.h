@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface YSFullScreenImageViewController : UIViewController
 
-+ (instancetype)presentWithTargetPreviewVew:(UIView*)previewView
-                                      image:(UIImage*)image
-                 shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
-                          presentCompletion:(void(^)(void))presentCompletion
-                          dismissCompletion:(void(^)(void))dismissCompletion;
++ (YSFullScreenImageViewController * __nullable)presentWithTargetPreviewVew:(UIView *)previewView
+                                                                      image:(UIImage *)image
+                                                 shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
+                                                          presentCompletion:(void(^ __nullable)(void))presentCompletion
+                                                          dismissCompletion:(void(^ __nullable)(void))dismissCompletion;
 
 - (void)setImage:(UIImage *)image;
 
 @end
+NS_ASSUME_NONNULL_END
