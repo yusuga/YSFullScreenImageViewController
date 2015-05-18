@@ -10,6 +10,14 @@
 
 static CFTimeInterval const kAnimationDuration = 0.2;
 
+static inline CGFLOAT_TYPE CGFloat_fabs(CGFLOAT_TYPE cgfloat) {
+#if defined(__LP64__) && __LP64__
+    return fabs(cgfloat);
+#else
+    return fabsf(cgfloat);
+#endif
+}
+
 @interface YSFullScreenImageViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, weak) UIWindow *previousKeyWindow;
@@ -37,7 +45,7 @@ static CFTimeInterval const kAnimationDuration = 0.2;
 {
     if (!image) {
 #ifdef DDLogWarn
-        DDLogWarn(@"Already YSFullScreenImageViewController is displayed.");
+        DDLogWarn(@"Image is nil. %s", __func__);
 #endif
         return nil;
     }
@@ -45,7 +53,7 @@ static CFTimeInterval const kAnimationDuration = 0.2;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if ([window.rootViewController isKindOfClass:[self class]]) {
 #ifdef DDLogWarn
-        DDLogWarn(@"Already YSFullScreenImageViewController is displayed.");
+        DDLogWarn(@"Already YSFullScreenImageViewController is displayed. %s", __func__);
 #endif
         return nil;
     }
@@ -87,7 +95,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
         self.scrollView.delegate = self;
-        self.scrollView.contentSize = self.scrollView.bounds.size;
+        [self configureScrollViewContentSize];
         self.scrollView.minimumZoomScale = 1.f;
         self.scrollView.maximumZoomScale = 5.f;
         self.scrollView.autoresizingMask = self.view.autoresizingMask;
@@ -219,7 +227,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
         }
     } else {
 #ifdef DDLogError
-        DDLogError(@"%@, imageSize is invalid, imageSize = %@", NSStringFromSelector(_cmd), NSStringFromCGSize(imageSize));
+        DDLogError(@"imageSize(%@) is invalid. %s", NSStringFromCGSize(imageSize), __func__);
 #endif
     }
     
@@ -446,9 +454,40 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 
 #pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.zoomScale == 1.f) {
+        self.backgroundColorView.alpha = 1.f - CGFloat_fabs(scrollView.contentOffset.y)/100.f;
+        if (self.backgroundColorView.alpha < 0.6f) self.backgroundColorView.alpha = 0.6f;
+    }
+}
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.imageView;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    if (CGSizeEqualToSize(scrollView.contentSize, scrollView.bounds.size)) {
+        [self configureScrollViewContentSize];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView.zoomScale == 1.f && CGFloat_fabs(scrollView.contentOffset.y) > 70.f) {
+        self.crossDissolveTransition = YES;
+        [self hide];
+    }
+}
+
+#pragma mark - ScrollView
+
+- (void)configureScrollViewContentSize
+{
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width,
+                                             self.scrollView.bounds.size.height + 1.f);
 }
 
 #pragma mark - Notification
@@ -461,7 +500,7 @@ shownActivityIndicatorView:(BOOL)shownActivityIndicatorView
 
 - (void)didRotate:(NSNotification*)notification
 {
-    self.scrollView.contentSize = self.view.bounds.size;
+    [self configureScrollViewContentSize];
 }
 
 #pragma mark - Rotation
