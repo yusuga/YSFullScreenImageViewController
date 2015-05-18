@@ -15,9 +15,4 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#ifdef DEBUG
-    static const DDLogLevel ddLogLevel = DDLogLevelAll;
-#else
-    static const DDLogLevel ddLogLevel = DDLogLevelWarning;
-#endif
+#import <LumberjackLauncher/LumberjackLauncher.h>
